@@ -402,9 +402,38 @@
             font-family: 'Nunito', sans-serif;
         }
     </style>
+
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+
 </head>
 
 <body>
+
+
+<div class="container">
+    <div class="row chat-row">
+        <div class="chat-content">
+            <ul>
+                {{-- <li>ad</li> --}}
+            </ul>
+        </div>
+
+
+<div class="chat-section">
+    <div class="chat-box">
+        <div class="chat-input" id="chatInput" contenteditable="">
+
+        </div>
+    </div>
+</div>
+
+
+
+    </div>
+</div>
+
+
+
     <script src="https://code.jquery.com/jquery-3.7.0.js" integrity="sha256-JlqSTELeR4TLqP0OG9dxM7yDPqX1ox/HfgiSLBj8+kM="
         crossorigin="anonymous"></script>
     <script src="https://cdn.socket.io/4.6.0/socket.io.min.js"
@@ -416,7 +445,21 @@
             let socket_port = '3000';
             let socket = io(ip_address + ':' + socket_port);
 
-            socket.on('connection');
+            let chatInput = $('#chatInput');
+            chatInput.keypress(function(e){
+                let message = $(this).html();
+                console.log(message);
+                if(e.which === 13 && !e.shiftKey){
+                    socket.emit('sendChatToServer', message);
+                    chatInput.html('');
+                    return false;
+                }
+            })
+
+            socket.on('sendChatToCliente',(message)=>{
+                $('.chat-content ul').append(`<li>${message}</li>`)
+            });
+            // socket.on('connection');
         });
     </script>
 </body>
