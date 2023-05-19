@@ -58,8 +58,10 @@
 
 
             // METODO DONDE ESCUCHA A LOS JUGADORES CUANDO APRIETAN EL BOTON
+            let numero = 1;
             socket.on('jugadorBoton', (message) => {
-                $('#contenido').append(`<tr><td>${message}</td></tr>`)
+                $('#contenido').append(`<tr><td>${numero}</td><td>${message}</td></tr>`)
+                numero ++;
             });
             // socket.on('connection');
         });

@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\EquipoController;
 use App\Http\Controllers\JuegoController;
+use App\Http\Controllers\PreguntaController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -25,6 +26,8 @@ Route::get('/participante', function () {
 
 Route::resource('ingresar',EquipoController::class);
 Route::resource('juego',JuegoController::class);
+Route::resource('pregunta',PreguntaController::class);
+
 
 
 // Route::get('/equipo/clave/{clave}',           [EquipoController::class, 'entrar']);

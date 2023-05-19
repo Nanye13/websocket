@@ -12,9 +12,8 @@
     <div class="container-fluid">
         <div style="height: 100vh; display: flex; justify-content: center;">
             <div style="align-self: center; width: 90%;">
-                <header style="padding: 20px; text-align: center"><label for=""
-                        style="color: white"></header>
-                        <input type="hidden" name="nombreEquipo" id="nombreEquipo" value="{{$equipo->id}}">
+                <header style="padding: 20px; text-align: center"><label for="" style="color: white"></header>
+                {{-- <input type="hidden" name="nombreEquipo" id="nombreEquipo" value="{{ $equipo->nombre }}"> --}}
                 <div style="text-align: center;">
                     <label for="" style="color: white;">Espera a que se lea la siguiente pregunta</label>
 
@@ -38,7 +37,7 @@
             let socket_port = '3000';
             let socket = io(ip_address + ':' + socket_port);
 
-            let id_equipo = $('#nombreEquipo').val();
+            // let id_equipo = $('#nombreEquipo').val();
 
             // let chatInput = $('#chatInput');
             // chatInput.keypress(function(e) {
@@ -52,6 +51,7 @@
             // })
 
             socket.on('activoBoton', (message) => {
+                // message = id_equipo;
                 // $('.chat-content ul').append(`<li>${message}</li>`)
                 window.location.href = "{{ route('boton') }}";
 

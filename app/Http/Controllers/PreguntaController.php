@@ -2,10 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Equipo;
+use App\Models\Pregunta;
 use Illuminate\Http\Request;
 
-class EquipoController extends Controller
+class PreguntaController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -15,34 +15,12 @@ class EquipoController extends Controller
     public function index()
     {
         //
-        return view('jugador.ingresar');
+        $preguntas = Pregunta::get();
+        return view('organizador.preguntas',compact('preguntas'));
+
+
     }
 
-    public function entrar(Request $request)
-    {
-        $clave_equipo = $request->input('clave');
-        $equipo = Equipo::where('clave', $clave_equipo)->first();
-        if (!$equipo) {
-            abort(500, "No existe el equipo solicitado");
-        }
-        return view('jugador.espera', compact('equipo'));
-    }
-
-    public function espera()
-    {
-        
-        return view('jugador.espera');
-    }
-
-    public function botonJugador()
-    {
-        // $equipo = Equipo::find($id);
-        // if (!$equipo) {
-        //     abort(500, "No existe el equipo solicitado");
-        // }
-        // $nombre = $equipo->nombre;
-        return view('jugador.boton');
-    }
     /**
      * Show the form for creating a new resource.
      *
@@ -84,8 +62,24 @@ class EquipoController extends Controller
     public function edit($id)
     {
         //
+        $pregunta = Pregunta::find($id);
+        return view('organizador.tablero', compact('pregunta'));
     }
+    public function cambioEstatus($id)
+    {
+        $pregunta = Pregunta::find($id);
+        if (!$pregunta) {
+            abort(500, "No existe la pregunta con el ID solicitado");
+        }
 
+        $pregunta->estatus = 0;
+
+        if (!$pregunta->save()) {
+            abort(500, "No se pudo guardar la información");
+        }
+// DUDA A REDIRIGIR
+        return view('principal.scoreRonda', compact('pregunta'));
+    }
     /**
      * Update the specified resource in storage.
      *
